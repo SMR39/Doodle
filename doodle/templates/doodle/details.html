@@ -1,0 +1,28 @@
+<h1>{{ meeting.meeting_name }} </h1>
+
+<h4>number of votes required {{  meeting.nbVotesRequired }} </h4>
+
+
+
+{% if meeting.nbVotesRequired = 0 %}<p><strong>Voting is closed</strong></p>
+
+<a href="{% url 'doodle:chooseroom' meeting.id %}">click here to choose room</a>
+<br>
+
+<a href="{% url 'doodle:results' meeting.id %}">click here to see the results</a>
+<br>
+<a href="{% url 'doodle:room' meeting.id %}">See Schedules</a>
+
+
+
+{% else %}
+<form action ='{% url 'doodle:details' meeting.id %}' method="post">
+    {% csrf_token %}
+    {% for DateChoice in meeting.datechoice_set.all %}
+    <input type="radio" name="DateChoice" id="DateChoice{{ forloop.counter }}" value="{{ DateChoice.id }}">
+    <label for="DateChoice{{ forloop.counter }}">{{ DateChoice.date_to_be_choosed }}</label><br/>
+        {% endfor %}
+    <input type="submit" value="Vote"/>
+</form>
+{% endif %}
+

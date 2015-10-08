@@ -1,0 +1,26 @@
+<h1>{{ meeting.meeting_name }}</h1>
+
+
+<ul>
+    {% for choice in meeting.datechoice_set.all %}
+    <li>{{ choice.date_to_be_choosed }} -- {{ choice.nbVotes }} vote{{ choice.nbVotes|pluralize }}</li>
+    {% endfor %}
+</ul>
+
+{% if meeting.nbVotesRequired == 0%}
+	<h3> DATE SELECTED IS {{ meeting.date }} </h3>
+	<h3> ROOM ALLOTED IS {{ meeting.room }} </h3>
+{% endif %}
+
+
+{% if meeting.nbVotesRequired > 0%}
+<a href="{% url 'doodle:details' meeting.id %}">Vote again?</a>
+{% endif %}
+
+{% if meeting.nbVotesRequired == 0%}
+<a href="{% url 'doodle:chooseroom' meeting.id %}">click here to choose room</a>
+<br>
+{% endif %}
+<a href="{% url 'doodle:room' meeting.id %}">See Schedules</a>
+<br>
+<a href="{% url 'doodle:index'  %}">Doodle home</a>

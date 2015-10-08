@@ -1,0 +1,11 @@
+<h2>Room Details {{ meeting.room }}</h2>
+
+<h3> There is a meeting on {{ meeting.date }} </h3>
+<h3> Meeting Name: "{{ meeting.meeting_name }}" </h3>
+<h3> Location of the room: "{{ meeting.room.location}}" </h3>
+
+<h5>Voting has been closed for this Meeting</h5>
+
+<a href="{% url 'doodle:room' meeting.id %}">See Schedules</a>
+<br>
+<a href="{% url 'doodle:index'  %}">Doodle home</a>

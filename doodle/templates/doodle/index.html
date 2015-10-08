@@ -1,0 +1,12 @@
+
+<h1>DOODLE - MEETING LIST </h1>
+{% if meeting_list %}
+<ul>
+    {% for meeting in meeting_list %}
+    <li><a href="/doodle/{{ meeting.id }}/">{{meeting.meeting_name }}</a></li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No meetings are available.</p>
+{% endif %}
+

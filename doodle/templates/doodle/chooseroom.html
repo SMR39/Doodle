@@ -1,0 +1,26 @@
+<h1>{{meeting.meeting_name}}</h1>
+
+{% if error_message %}<p><strong>{{error_message}}</strong></p>{% endif %}
+
+<h2>Date Selected:</h2>
+<h2>{{ meeting.date }}</h2>
+</br>
+<h2>Choose Room</h2>
+
+{% if meeting.room %}
+
+<h2>Room already choosed : {{ meeting.room }}</h2>
+
+{% else %}
+<form action="{% url 'doodle:roomselect' meeting.id %}" method="post">
+    {% csrf_token %}
+    {% for roomchoice in room_list %}
+    <input type = "radio" name="choice" id="roomchoice{{forloop.counter}}" value="{{roomchoice.id}}"/>
+    <label for="roomchoice{{forloop.counter}}">{{roomchoice.name}}</label><br/>
+    {%endfor%}
+    <input type = "submit" value="choose"/>
+</form>
+
+{% endif %}
+<br>
+<a href="{% url 'doodle:index'  %}">Doodle home</a>
